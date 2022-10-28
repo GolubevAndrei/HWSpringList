@@ -8,6 +8,7 @@ public class SkyproSpringListApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SkyproSpringListApplication.class, args);
+		System.out.println("Welcome");
 	}
 
 }
