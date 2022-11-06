@@ -4,58 +4,55 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyprospringlist.Employee.Employee;
 import pro.sky.skyprospringlist.Exeption.EmployeeNotFoundExeption;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    List<Employee> employees = new ArrayList<>();
+    private final Map<String,Employee> employees = new HashMap<>();
+
 
     public String welcome() {
         return "Добро пожаловать";
     }
     @Override
-    public List<Employee> printAll() {
+    public Map<String, Employee> printAll() {
         return employees;
     }
 
     @Override
     public boolean addListCollection() {
-        employees.add(new Employee("Vasilii", "Sergeevich"));
-        employees.add(new Employee("Vladimir", "Vasilievich"));
-        employees.add(new Employee("Sergey", "Yusupovich"));
-        employees.add(new Employee("Andrey", "Volodimirovich"));
-        employees.add(new Employee("Stepan", "Alexandrovich"));
-        employees.add(new Employee("Alexander", "Stepanovich"));
-        employees.add(new Employee("Victor", "Olegovich"));
-        employees.add(new Employee("Oleg", "Victorovich"));
-        employees.add(new Employee("Dmitrii", "Andreevich"));
-        employees.add(new Employee("Fedor", "Dmitrievich"));
+        employees.put("Vasilii Sergeevich",new Employee("Vasilii", "Sergeevich"));
+        employees.put("Vladimir Vasilievich",new Employee("Vladimir", "Vasilievich"));
+        employees.put("Sergey Yusupovich",new Employee("Sergey", "Yusupovich"));
+        employees.put("Andrey Volodimirovich",new Employee("Andrey", "Volodimirovich"));
+        employees.put("Stepan Alexandrovich",new Employee("Stepan", "Alexandrovich"));
+        employees.put("Alexander Stepanovich",new Employee("Alexander", "Stepanovich"));
+        employees.put("Victor Olegovich",new Employee("Victor", "Olegovich"));
+        employees.put("Oleg Victorovich",new Employee("Oleg", "Victorovich"));
+        employees.put("Dmitrii ndreevich",new Employee("Dmitrii", "Andreevich"));
+        employees.put("Fedor Dmitrievich",new Employee("Fedor", "Dmitrievich"));
         return true;
     }
 
     public void addEmployee(String fistName, String lastName) {
-
-        employees.add(new Employee(fistName, lastName) );
+        employees.put(fistName + " " +  lastName, new Employee(fistName, lastName));
 
     }
     @Override
     public Employee removeEmployee(String fistName, String lastName) {
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFistName().equals(fistName)&&employees.get(i).getLastName().equals(lastName)) {
-                employees.remove(i);
-            }
+        if (employees.containsKey(fistName + " " +  lastName)) {
+                employees.remove(fistName + " " +  lastName);
         }
         throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
     }
 
     @Override
     public Employee searchEmployee(String fistName, String lastName) {
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFistName().equals(fistName)&&employees.get(i).getLastName().equals(lastName)) {
-                employees.get(i);
-            }
+        if (employees.containsKey(fistName + " " +  lastName)) {
+            employees.get(fistName + " " +  lastName);
         }
         throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
     }
+
 }

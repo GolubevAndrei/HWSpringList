@@ -22,7 +22,7 @@ public class Employee {
     }
 
     public String getFullName() {
-        return getFistName() + " " + getLastName();
+        return fistName + " " + lastName;
     }
 
     public String getFullData() {

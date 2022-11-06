@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.skyprospringlist.Employee.Employee;
 import pro.sky.skyprospringlist.Service.EmployeeService;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/printAll")
-    public List<Employee> printAllEmployees() {
+    public Map<String, Employee> printAllEmployees() {
 
         return employeeService.printAll();
     }
