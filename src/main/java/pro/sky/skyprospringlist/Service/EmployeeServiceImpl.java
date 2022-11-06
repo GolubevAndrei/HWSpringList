@@ -50,8 +50,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee searchEmployee(String fistName, String lastName) {
         if (employees.containsKey(fistName + " " +  lastName)) {
-            employees.get(fistName + " " +  lastName);
+           return  employees.get(fistName + " " +  lastName);
         }
+
         throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
     }
 
