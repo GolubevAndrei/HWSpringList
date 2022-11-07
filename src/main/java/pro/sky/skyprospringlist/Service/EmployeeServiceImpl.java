@@ -4,8 +4,11 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyprospringlist.Employee.Employee;
 import pro.sky.skyprospringlist.Exeption.EmployeeNotFoundExeption;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -16,27 +19,36 @@ public class EmployeeServiceImpl implements EmployeeService {
         return "Добро пожаловать";
     }
     @Override
+    public Stream<Employee> printAllDepartment(int department) {
+
+        return  employees.values().stream()
+                .filter(e -> e.getDepartment() == department);
+    }
+
+    @Override
     public Map<String, Employee> printAll() {
         return employees;
     }
 
+
     @Override
     public boolean addListCollection() {
-        employees.put("Vasilii Sergeevich",new Employee("Vasilii", "Sergeevich"));
-        employees.put("Vladimir Vasilievich",new Employee("Vladimir", "Vasilievich"));
-        employees.put("Sergey Yusupovich",new Employee("Sergey", "Yusupovich"));
-        employees.put("Andrey Volodimirovich",new Employee("Andrey", "Volodimirovich"));
-        employees.put("Stepan Alexandrovich",new Employee("Stepan", "Alexandrovich"));
-        employees.put("Alexander Stepanovich",new Employee("Alexander", "Stepanovich"));
-        employees.put("Victor Olegovich",new Employee("Victor", "Olegovich"));
-        employees.put("Oleg Victorovich",new Employee("Oleg", "Victorovich"));
-        employees.put("Dmitrii ndreevich",new Employee("Dmitrii", "Andreevich"));
-        employees.put("Fedor Dmitrievich",new Employee("Fedor", "Dmitrievich"));
+        employees.put("Vasilii Sergeevich",new Employee("Vasilii", "Sergeevich", 1, 15000.0));
+        employees.put("Vladimir Vasilievich",new Employee("Vladimir", "Vasilievich",  2, 18000.0));
+        employees.put("Sergey Yusupovich",new Employee("Sergey", "Yusupovich",  5, 35000.0));
+        employees.put("Andrey Volodimirovich",new Employee("Andrey", "Volodimirovich", 3, 45000.0));
+        employees.put("Stepan Alexandrovich",new Employee("Stepan", "Alexandrovich", 5, 12800.0));
+        employees.put("Alexander Stepanovich",new Employee("Alexander", "Stepanovich", 4, 11300.15));
+        employees.put("Victor Olegovich",new Employee("Victor", "Olegovich", 4, 16750.0));
+        employees.put("Oleg Victorovich",new Employee("Oleg", "Victorovich", 1, 23486.12));
+        employees.put("Dmitrii Andreevich",new Employee("Dmitrii", "Andreevich", 3, 22594.38));
+        employees.put("Fedor Dmitrievich",new Employee("Fedor", "Dmitrievich", 2, 36985.0));
         return true;
     }
 
-    public void addEmployee(String fistName, String lastName) {
-        employees.put(fistName + " " +  lastName, new Employee(fistName, lastName));
+
+    public void addEmployee(String fistName, String lastName, Integer department , double salary) {
+        employees.put(fistName + " " +  lastName, new Employee(fistName, lastName, department, salary));
 
     }
     @Override
@@ -54,6 +66,48 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
+    }
+    @Override
+    public double getWageFund() {
+      return employees.values().stream()
+                .mapToDouble(e -> e.getSalary())
+                .sum();
+    }
+
+    @Override
+    public double getDepartmentWageFund(int department) {
+     return employees.values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .mapToDouble(e -> e.getSalary())
+                .sum();
+    }
+    @Override
+    public Optional<Employee> getMinSalaryEmployee(int department) {
+
+        return employees.values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .min(Comparator.comparing(Employee::getSalary));
+
+    }
+    @Override
+    public Stream<Employee> getDownSalaryEmployee(double salaryLevel) {
+     return employees.values().stream()
+                .filter(e -> e.getSalary() < salaryLevel);
+
+    }
+    @Override
+    public Stream<Employee> getUpSalaryEmployee(double salaryLevel) {
+        return employees.values().stream()
+                .filter(e -> e.getSalary() > salaryLevel);
+
+    }
+    @Override
+    public Optional<Employee> getMaxSalaryEmployee(int department) {
+
+        return employees.values().stream()
+                .filter(e -> e.getDepartment() == department)
+                .max(Comparator.comparing(Employee::getSalary));
+
     }
 
 }
