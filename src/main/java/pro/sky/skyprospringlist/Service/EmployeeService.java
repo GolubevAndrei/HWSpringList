@@ -11,9 +11,9 @@ public interface EmployeeService {
 
     String welcome();
 
-    Stream<Employee> printAllDepartment(int department);
+    //Stream<Employee> printAllDepartment(int department);
 
-    public Map<String, Employee> printAll();
+    //public Map<String, Employee> printAll();
 
     public boolean addListCollection();
 
@@ -25,14 +25,14 @@ public interface EmployeeService {
 
     double getDepartmentWageFund(int department);
 
-    Optional<Employee> getMinSalaryEmployee(int department);
+    //Optional<Employee> getMinSalaryEmployee(int department);
 
     Stream<Employee> getDownSalaryEmployee(double salaryLevel);
 
 
     Stream<Employee> getUpSalaryEmployee(double salaryLevel);
 
-    Optional<Employee> getMaxSalaryEmployee(int department);
+    //Optional<Employee> getMaxSalaryEmployee(int department);
 
 
 }

@@ -12,24 +12,11 @@ import java.util.stream.Stream;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Map<String,Employee> employees = new HashMap<>();
-
+    public Map<String,Employee> employees = new HashMap<>();
 
     public String welcome() {
         return "Добро пожаловать";
     }
-    @Override
-    public Stream<Employee> printAllDepartment(int department) {
-
-        return  employees.values().stream()
-                .filter(e -> e.getDepartment() == department);
-    }
-
-    @Override
-    public Map<String, Employee> printAll() {
-        return employees;
-    }
-
 
     @Override
     public boolean addListCollection() {
@@ -81,14 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .mapToDouble(e -> e.getSalary())
                 .sum();
     }
-    @Override
-    public Optional<Employee> getMinSalaryEmployee(int department) {
 
-        return employees.values().stream()
-                .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getSalary));
-
-    }
     @Override
     public Stream<Employee> getDownSalaryEmployee(double salaryLevel) {
      return employees.values().stream()
@@ -101,13 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .filter(e -> e.getSalary() > salaryLevel);
 
     }
-    @Override
-    public Optional<Employee> getMaxSalaryEmployee(int department) {
 
-        return employees.values().stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getSalary));
-
-    }
 
 }

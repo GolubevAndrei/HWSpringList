@@ -26,20 +26,6 @@ public class EmployeeController {
         return employeeService.welcome();
 
     }
-
-    @GetMapping(path = "/departments/allDepartment")
-    public Stream<Employee> printAllDepartmentEmployees(@RequestParam("departmentId") Integer department) {
-
-        return employeeService.printAllDepartment(department);
-
-    }
-
-    @GetMapping(path = "/departments/all")
-    public Map<String, Employee> printAllEmployees() {
-
-        return employeeService.printAll();
-    }
-
     @GetMapping(path = "/addList")
     public boolean addListCollection() {
 
@@ -80,20 +66,6 @@ public class EmployeeController {
     public Double getDepartmentWageFund(@RequestParam("department") Integer department) {
 
         return employeeService.getDepartmentWageFund(department);
-
-    }
-
-    @GetMapping(path = "/departments/min-salary")
-    public Optional<Employee> getMinSalaryEmployee(@RequestParam("departmentId") Integer department) {
-
-        return employeeService.getMinSalaryEmployee(department);
-
-    }
-
-    @GetMapping(path = "/departments/max-salary")
-    public Optional<Employee> getMaxSalaryEmployee(@RequestParam("departmentId") Integer department) {
-
-        return employeeService.getMaxSalaryEmployee(department);
 
     }
 
