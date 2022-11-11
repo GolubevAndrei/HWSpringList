@@ -3,6 +3,7 @@ package pro.sky.skyprospringlist.Service;
 
 import pro.sky.skyprospringlist.Employee.Employee;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -31,6 +32,8 @@ public interface EmployeeService {
 
 
     Stream<Employee> getUpSalaryEmployee(double salaryLevel);
+
+    List<Employee> getAll();
 
     //Optional<Employee> getMaxSalaryEmployee(int department);
 

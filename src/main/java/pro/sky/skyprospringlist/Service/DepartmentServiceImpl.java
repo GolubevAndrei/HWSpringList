@@ -2,47 +2,50 @@ package pro.sky.skyprospringlist.Service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.skyprospringlist.Employee.Employee;
+import pro.sky.skyprospringlist.Exeption.EmployeeNotFoundExeption;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    EmployeeServiceImpl empl = new EmployeeServiceImpl();
+    private final EmployeeService employeeService;
 
-    public Map<String, Employee> employees = empl.employees;
+    public DepartmentServiceImpl(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @Override
     public Stream<Employee> printAllDepartment(int department) {
-        empl.addListCollection();
-        return  employees.values().stream()
+        return  employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department);
     }
 
     @Override
-    public Map<String, Employee> printAll() {
-        empl.addListCollection();
-        return employees;
+    public Map<Integer, List<Employee>> printAll() {
+        return employeeService.getAll().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 
     @Override
-    public Optional<Employee> getMinSalaryEmployee(int department) {
-        empl.addListCollection();
-        return employees.values().stream()
+    public Employee getMinSalaryEmployee(int department) {
+        return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparing(Employee::getSalary));
+                .min(Comparator.comparing(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundExeption::new);
 
     }
 
     @Override
-    public Optional<Employee> getMaxSalaryEmployee(int department) {
-        empl.addListCollection();
-        return employees.values().stream()
+    public Employee getMaxSalaryEmployee(int department) {
+        return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparing(Employee::getSalary));
+                .max(Comparator.comparing(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundExeption::new);
 
     }
 }

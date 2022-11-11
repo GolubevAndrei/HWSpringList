@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.skyprospringlist.Employee.Employee;
 import pro.sky.skyprospringlist.Service.DepartmentService;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -27,20 +28,20 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/all")
-    public Map<String, Employee> printAllEmployees() {
+    public Map<Integer,List<Employee>> printAllEmployees() {
 
         return departmentService.printAll();
     }
 
     @GetMapping(path = "/min-salary")
-    public Optional<Employee> getMinSalaryEmployee(@RequestParam("departmentId") Integer department) {
+    public Employee getMinSalaryEmployee(@RequestParam("departmentId") Integer department) {
 
         return departmentService.getMinSalaryEmployee(department);
 
     }
 
     @GetMapping(path = "/max-salary")
-    public Optional<Employee> getMaxSalaryEmployee(@RequestParam("departmentId") Integer department) {
+    public Employee getMaxSalaryEmployee(@RequestParam("departmentId") Integer department) {
 
         return departmentService.getMaxSalaryEmployee(department);
 

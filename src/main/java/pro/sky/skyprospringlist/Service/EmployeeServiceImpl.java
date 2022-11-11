@@ -4,10 +4,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyprospringlist.Employee.Employee;
 import pro.sky.skyprospringlist.Exeption.EmployeeNotFoundExeption;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -43,7 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employees.containsKey(fistName + " " +  lastName)) {
                 employees.remove(fistName + " " +  lastName);
         }
-        throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
+        //        throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
+        throw new EmployeeNotFoundExeption();
     }
 
     @Override
@@ -52,7 +50,8 @@ public class EmployeeServiceImpl implements EmployeeService {
            return  employees.get(fistName + " " +  lastName);
         }
 
-        throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
+        //        throw new EmployeeNotFoundExeption("Employee " + fistName + " " +  lastName + ": not found");
+        throw new EmployeeNotFoundExeption();
     }
     @Override
     public double getWageFund() {
@@ -80,6 +79,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employees.values().stream()
                 .filter(e -> e.getSalary() > salaryLevel);
 
+    }
+    @Override
+    public List<Employee> getAll() {
+        return new ArrayList<>(employees.values());
     }
 
 
