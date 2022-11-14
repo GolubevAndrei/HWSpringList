@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public interface DepartmentService {
 
-    Stream<Employee> printAllDepartment(int department);
+    List<Employee> printAllDepartment(int department);
 
     Map<Integer, List<Employee>> printAll();
 

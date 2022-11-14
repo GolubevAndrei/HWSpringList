@@ -20,9 +20,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Stream<Employee> printAllDepartment(int department) {
-        return  employeeService.getAll().stream()
-                .filter(e -> e.getDepartment() == department);
+    public List<Employee> printAllDepartment(int department) {
+        return employeeService.getAll().stream()
+                .filter(e -> e.getDepartment() == department).toList();
     }
 
     @Override

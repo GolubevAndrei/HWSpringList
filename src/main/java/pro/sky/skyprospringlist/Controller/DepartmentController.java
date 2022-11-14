@@ -21,7 +21,7 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @GetMapping(path = "/allDepartment")
-    public Stream<Employee> printAllDepartmentEmployees(@RequestParam("departmentId") Integer department) {
+    public List<Employee> printAllDepartmentEmployees(@RequestParam("departmentId") Integer department) {
 
         return departmentService.printAllDepartment(department);
 

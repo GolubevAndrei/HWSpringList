@@ -11,6 +11,12 @@ import java.util.stream.Stream;
 public class EmployeeServiceImpl implements EmployeeService {
     public Map<String,Employee> employees = new HashMap<>();
 
+    private final FIOService fioService;
+
+    public EmployeeServiceImpl(FIOService fioService) {
+        this.fioService = fioService;
+    }
+
     public String welcome() {
         return "Добро пожаловать";
     }
@@ -32,7 +38,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     public void addEmployee(String fistName, String lastName, Integer department , double salary) {
-        employees.put(fistName + " " +  lastName, new Employee(fistName, lastName, department, salary));
+        employees.put(fioService.ChecName(fistName) + " " + fioService.ChecSureName(lastName),
+                new Employee(
+                        fioService.ChecName(fistName),
+                        fioService.ChecSureName(lastName),
+                        department,
+                        salary));
 
     }
     @Override
