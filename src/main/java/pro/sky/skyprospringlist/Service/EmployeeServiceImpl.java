@@ -17,6 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.fioService = fioService;
     }
 
+
     public String welcome() {
         return "Добро пожаловать";
     }
@@ -37,15 +38,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public void addEmployee(String fistName, String lastName, Integer department , double salary) {
-        employees.put(fioService.ChecName(fistName) + " " + fioService.ChecSureName(lastName),
+    public Employee addEmployee(String fistName, String lastName, Integer department , double salary) {
+       // employees.put(fioService.ChecName(fistName) + " " + fioService.ChecSureName(lastName),
+        employees.put(fistName + " " + lastName,
                 new Employee(
-                        fioService.ChecName(fistName),
-                        fioService.ChecSureName(lastName),
+//                        fioService.ChecName(fistName),
+//                        fioService.ChecSureName(lastName),
+                        fistName,
+                        lastName,
                         department,
                         salary));
 
+        return employees.get(fistName + " " +  lastName);
     }
+
     @Override
     public Employee removeEmployee(String fistName, String lastName) {
         if (employees.containsKey(fistName + " " +  lastName)) {
